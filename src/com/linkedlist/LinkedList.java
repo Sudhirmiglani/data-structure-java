@@ -191,11 +191,125 @@ public class LinkedList {
         if (node == null || node.next == null) {
             return null;
         }
-        while (fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
         return slow;
+    }
+
+    public void reversal() {
+        head = reversal(head);
+    }
+
+    private Node reversal(Node node) {
+        if (node == null) {
+            return node;
+        }
+        Node current = node, prev = null, next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+
+    public boolean isPalindrome() {
+        return isPalindrome(head);
+    }
+
+    private boolean isPalindrome(Node node) {
+        if (node == null || node.next == null) {
+            return true;
+        }
+
+        // find middle of linked list
+        Node slow = node, fast = node, middle = null, middlePrev = null;
+
+        while (fast != null && fast.next != null) {
+            middlePrev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // odd number of nodes
+        if (fast != null) {
+            middle = slow;
+            slow = slow.next;
+            middle.next = null;
+        }
+        middlePrev.next = null;
+        Node ptr1 = node;
+        slow = reversal(slow);
+        Node ptr2 = slow;
+        while (ptr1 != null && ptr2 != null && ptr1.data == ptr2.data) {
+            ptr1 = ptr1.next;
+            ptr2 = ptr2.next;
+        }
+        if (ptr1 != null || ptr2 != null) {
+            return false;
+        }
+
+        // remake the list
+        ptr1 = node;
+        ptr2 = slow;
+        while (ptr1.next != null) {
+            ptr1 = ptr1.next;
+        }
+        if (middle != null) {
+            ptr1.next = middle;
+            ptr1 = ptr1.next;
+        }
+        ptr1.next = reversal(ptr2);
+
+        return true;
+    }
+
+    public void mergeSortedLL(LinkedList list1, LinkedList list2) {
+        Node node = mergeSortedLinkedList(list1.head, list2.head);
+        //printList(node);
+        printList(list1.head);
+        printList(list2.head);
+       // System.out.print("");
+    }
+
+    private Node mergeSortedLinkedList(Node node1, Node node2) {
+        Node temp = null, head = null;
+        while (node1 != null && node2 != null) {
+            if(node1.data < node2.data){
+                if(temp == null){
+                    temp = node1;
+                    head = temp;
+                    node1 = node1.next;
+                    temp.next = null;
+                }else{
+                    temp.next = node1;
+                    temp = temp.next;
+                    node1 = node1.next;
+                }
+            }else{
+                if(temp == null){
+                    temp = node2;
+                    head = temp;
+                    node2 = node2.next;
+                    temp.next = null;
+                }else{
+                    temp.next = node2;
+                    temp = temp.next;
+                    node2 = node2.next;
+                }
+            }
+        }
+        if(node1 != null){
+            temp.next = node1;
+        }
+        if(node2 != null){
+            temp.next = node2;
+        }
+
+        return head;
     }
 
 
@@ -205,6 +319,9 @@ public class LinkedList {
         linkedList.insert(2);
         linkedList.insert(3);
         linkedList.insert(4);
+        linkedList.insert(3);
+        linkedList.insert(2);
+        linkedList.insert(1);
 //        linkedList.insert(5);
 //        linkedList.insert(6);
         //linkedList.delete(6);
@@ -212,12 +329,30 @@ public class LinkedList {
         System.out.println();
         System.out.println("Length of link list " + linkedList.length());
 
-        System.out.println("Swap");
-        linkedList.swap(6, 1);
-        linkedList.printList();
-        System.out.println("Get kth node from last ");
-        linkedList.getKthNodeFromLast(6);
-        linkedList.getMiddleElement();
+        //System.out.println("Swap");
+        //linkedList.swap(6, 1);
+        //linkedList.printList();
+        //System.out.println("Get kth node from last ");
+        //linkedList.getKthNodeFromLast(6);
+        //linkedList.getMiddleElement();
+        // linkedList.reversal();
+        // System.out.println("reversal ");
+        // linkedList.printList();
+        System.out.println("Is palindrome " + linkedList.isPalindrome());
+        //linkedList.printList();
+
+
+        LinkedList linkedList1 = new LinkedList();
+        linkedList1.insert(1);
+        linkedList1.insert(3);
+        linkedList1.insert(5);
+
+        LinkedList linkedList2 = new LinkedList();
+        linkedList2.insert(2);
+        linkedList2.insert(4);
+
+        linkedList.mergeSortedLL(linkedList1, linkedList2);
+
     }
 
 

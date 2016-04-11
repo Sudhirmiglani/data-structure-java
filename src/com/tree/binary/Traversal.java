@@ -38,9 +38,9 @@ public class Traversal {
             return;
         }
 
-        printPostOrder(root.left);
+        printInOrder(root.left);
         System.out.print(root.data + " ");
-        printPostOrder(root.right);
+        printInOrder(root.right);
     }
 
     public void printPreOrder() {

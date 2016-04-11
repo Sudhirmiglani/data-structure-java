@@ -53,7 +53,7 @@ public class BFS {
     }
 
     public void levelOrderUsingQueue(){
-
+        levelOrderUsingQueue(this.root);
     }
 
     private void levelOrderUsingQueue(Node root){
@@ -61,6 +61,14 @@ public class BFS {
         queue.add(root);
         while (!queue.isEmpty()){
             //Node temp
+            Node temp = queue.poll();
+            System.out.print(temp.data + " ");
+            if(temp.left != null){
+                queue.add(temp.left);
+            }
+            if(temp.right != null){
+                queue.add(temp.right);
+            }
         }
 
     }
@@ -73,7 +81,9 @@ public class BFS {
         traversal.root.right = new Node(3);
         traversal.root.left.left = new Node(4);
         traversal.root.left.right = new Node(5);
-        traversal.levelOrder();
+        traversal.root.right.right = new Node(6);
+        //traversal.levelOrder();
+        traversal.levelOrderUsingQueue();
     }
 
 
