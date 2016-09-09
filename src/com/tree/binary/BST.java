@@ -42,6 +42,30 @@ public class BST {
         printInOrder(root.right);
     }
 
+    public void getKthLargest(){
+        int arr[] = {2};
+        Node n = getKthLargest(this.root, arr);
+        if(n != null){
+            System.out.println(n.data);
+        }
+    }
+
+    private Node getKthLargest(Node node, int[] k){
+        if(node == null || k[0] == 1){
+            return node;
+        }
+        if(node.left == null && node.right == null){
+            k[0]--;
+            return node;
+        }
+        Node n = getKthLargest(node.right , k);
+        if(n != null){
+            return n;
+        }
+        //k--;
+        return getKthLargest(node.left , k);
+    }
+
     public void search(int data){
         Node node = search(this.root, data);
         if(node == null){
@@ -71,8 +95,9 @@ public class BST {
             bst.insert(i);
         }
         bst.printInOrder();
-        bst.search(5);
-        bst.search(7);
+        bst.getKthLargest();
+        //bst.search(5);
+        //bst.search(7);
 
     }
 

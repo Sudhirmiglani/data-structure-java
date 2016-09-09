@@ -269,43 +269,47 @@ public class LinkedList {
 
     public void mergeSortedLL(LinkedList list1, LinkedList list2) {
         Node node = mergeSortedLinkedList(list1.head, list2.head);
-        //printList(node);
+        System.out.println("Merged list ");
+        printList(node);
+        System.out.println("Individual lists");
         printList(list1.head);
+        System.out.println("Individual lists");
         printList(list2.head);
-       // System.out.print("");
+        // System.out.print("");
     }
 
-    private Node mergeSortedLinkedList(Node node1, Node node2) {
+    private Node mergeSortedLinkedList(Node n1, Node n2) {
         Node temp = null, head = null;
+        Node node1 = n1, node2 = n2;
         while (node1 != null && node2 != null) {
-            if(node1.data < node2.data){
-                if(temp == null){
+            if (node1.data < node2.data) {
+                if (temp == null) {
                     temp = node1;
                     head = temp;
                     node1 = node1.next;
                     temp.next = null;
-                }else{
+                } else {
                     temp.next = node1;
                     temp = temp.next;
                     node1 = node1.next;
                 }
-            }else{
-                if(temp == null){
+            } else {
+                if (temp == null) {
                     temp = node2;
                     head = temp;
                     node2 = node2.next;
                     temp.next = null;
-                }else{
+                } else {
                     temp.next = node2;
                     temp = temp.next;
                     node2 = node2.next;
                 }
             }
         }
-        if(node1 != null){
+        if (node1 != null) {
             temp.next = node1;
         }
-        if(node2 != null){
+        if (node2 != null) {
             temp.next = node2;
         }
 
@@ -330,7 +334,7 @@ public class LinkedList {
         System.out.println("Length of link list " + linkedList.length());
 
         //System.out.println("Swap");
-        //linkedList.swap(6, 1);
+        linkedList.swap(6, 1);
         //linkedList.printList();
         //System.out.println("Get kth node from last ");
         //linkedList.getKthNodeFromLast(6);
@@ -338,7 +342,7 @@ public class LinkedList {
         // linkedList.reversal();
         // System.out.println("reversal ");
         // linkedList.printList();
-        System.out.println("Is palindrome " + linkedList.isPalindrome());
+        //System.out.println("Is palindrome " + linkedList.isPalindrome());
         //linkedList.printList();
 
 
